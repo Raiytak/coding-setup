@@ -1,0 +1,6 @@
+FLAG_ZSH: true
+FLAG_KVM: false
+
+ZSH_PLUGINS:
+  - name: zsh-syntax-highlighting
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git

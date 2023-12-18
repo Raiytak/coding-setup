@@ -1,0 +1,30 @@
+---
+- name: Check processor supports virtualization
+  ansible.builtin.shell: egrep -c '(vmx|svm)' /proc/cpuinfo
+  register: processor_virtualized
+
+- name: Debugging
+  ansible.builtin.debug:
+    msg: "{{ processor_virtualized }}"
+
+- name: Assert processor supports virtualization
+  ansible.builtin.assert:
+    that:
+      "{{ processor_virtualized | int | > 0 }}"
+
+- name: Install cpu-checker
+  ansible.builtin.apt:
+    name: cpu-checker
+
+- name: Check KVM virtualization enabled
+  ansible.builtin.shell: kvm-ok
+  register: enabled_virtualization
+
+- name: Debugging
+  ansible.builtin.debug:
+    msg: "{{ enabled_virtualization }}"
+
+- name: Assert enabled virtualization
+  ansible.builtin.assert:
+    that:
+      enabled_virtualization.stdout 

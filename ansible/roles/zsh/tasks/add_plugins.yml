@@ -1,0 +1,28 @@
+---
+- name: Get zsh current plugins
+  ansible.builtin.shell:
+    cmd: cat /home/{{ USER }}/.zshrc | sed -n 's/^plugins=[^(]*(\([^)]*\).*/\1/p'
+  register: zsh_plugins
+
+- name: List missing plugins
+  set_fact:
+    missing_plugins: "{{ missing_plugins | default([]) + [item] }}"
+  when: not item.name in zsh_plugins.stdout
+  loop: "{{ ZSH_PLUGINS }}"
+
+- name: Download zsh plugin
+  ansible.builtin.git:
+    repo: "{{ item.repo }}"
+    dest: /home/{{ USER }}/.oh-my-zsh/custom/plugins/{{ item.name }}
+    depth: 1
+  loop: "{{ missing_plugins }}"
+  when: missing_plugins is defined
+
+- name: Add plugins to zsh
+  ansible.builtin.lineinfile:
+    path: /home/{{ USER }}/.zshrc
+    regexp: ^plugins=\((.*)\)
+    line: plugins=(\1 {{ item.name }})
+    backrefs: yes
+  loop: "{{ missing_plugins }}"
+  when: missing_plugins is defined

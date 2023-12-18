@@ -1,0 +1,10 @@
+---
+- hosts: "{{ HOSTS }}"
+  vars_files:
+    - inventories/dev/group_vars/workstation.yml
+  become: true
+  roles:
+    - role: zsh
+      when: FLAG_ZSH == true
+    - role: kvm
+      when: FLAG_KVM == true

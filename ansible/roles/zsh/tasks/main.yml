@@ -1,0 +1,48 @@
+---
+- name: Install vim
+  ansible.builtin.apt:
+    name: vim
+
+- name: Install zsh
+  ansible.builtin.apt:
+    name: zsh
+
+- name: Set zsh as default shell for {{ USER }}
+  ansible.builtin.user:
+    name: "{{ USER }}"
+    shell: /usr/bin/zsh
+
+- name: Download script to install 'Oh My Zsh'
+  ansible.builtin.uri:
+    url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+    dest: /tmp/oh-my-zsh-install.sh
+    mode: 0777
+    creates: /tmp/oh-my-zsh-install.sh
+
+- name: Install 'Oh My Zsh'
+  become: true
+  become_user: "{{ USER }}"
+  ansible.builtin.shell:
+    cmd: echo y | /tmp/oh-my-zsh-install.sh
+    creates: /home/{{ USER }}/.oh-my-zsh
+
+- name: Install 'powerlevel10k'
+  ansible.builtin.git:
+    repo: https://github.com/romkatv/powerlevel10k.git
+    dest: /home/{{ USER }}/.oh-my-zsh/custom/themes/powerlevel10k
+    depth: 1
+
+- name: Configure zsh to use 'powerlevel10k'
+  ansible.builtin.lineinfile:
+    path: /home/{{ USER }}/.zshrc
+    regexp: ZSH_THEME=
+    line: ZSH_THEME="powerlevel10k/powerlevel10k"
+  
+- name: Set zsh as case sensitive
+  ansible.builtin.lineinfile:
+    path: /home/{{ USER }}/.zshrc
+    regexp: ^.*CASE_SENSITIVE=.*$
+    line: CASE_SENSITIVE="true"
+
+- import_tasks: add_plugins.yml
+

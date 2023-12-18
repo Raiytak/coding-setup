@@ -1,0 +1,3 @@
+---
+- import_tasks: available_virtualization.yml
+- import_tasks: prepare_virtualization.yml

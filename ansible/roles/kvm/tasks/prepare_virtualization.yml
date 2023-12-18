@@ -1,0 +1,28 @@
+---
+- name: Install required packages
+  ansible.builtin.apt:
+    name:
+      - qemu-kvm
+      - virt-manager
+      - libvirt-daemon-system
+      - virtinst
+      - libvirt-clients
+      - bridge-utils
+      - ebtables
+  notify: Restart libvirtd
+
+- name: Add user to groups kvm and libvirt
+  ansible.builtin.user:
+    name: "{{ USER }}"
+    groups:
+      - kvm
+      - libvirt
+    append: true
+
+- name: Add network bridge
+  ansible.builtin.copy:
+    src: files/01-netcfg.yaml
+    dest: /etc/netplan/01-netcfg.yaml
+    mode: '0600'
+    force: false
+  notify: Apply netplan

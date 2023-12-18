@@ -1,0 +1,11 @@
+---
+- name: Restart libvirtd
+  ansible.builtin.service:
+    name: libvirtd
+    state: restarted
+    enabled: true
+
+- name: Apply netplan
+  shell: netplan apply
+  async: 45
+  poll: 0
