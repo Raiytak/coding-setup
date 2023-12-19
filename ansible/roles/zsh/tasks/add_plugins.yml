@@ -1,28 +1,35 @@
 ---
 - name: Get zsh current plugins
-  ansible.builtin.shell:
-    cmd: cat /home/{{ USER }}/.zshrc | sed -n 's/^plugins=[^(]*(\([^)]*\).*/\1/p'
+  ansible.builtin.command: # noqa: no-changed-when
+    cmd: set -o pipefail && cat /home/{{ USER }}/.zshrc | sed -n 's/^plugins=[^(]*(\([^)]*\).*/\1/p'
   register: zsh_plugins
 
 - name: List missing plugins
-  set_fact:
-    missing_plugins: "{{ missing_plugins | default([]) + [item] }}"
-  when: not item.name in zsh_plugins.stdout
-  loop: "{{ ZSH_PLUGINS }}"
+  ansible.builtin.set_fact:
+    missing_plugins: "{{ missing_plugins | default([]) + [plugin] }}"
+  when: not plugin.name in zsh_plugins.stdout
+  loop: "{{ zsh_plugins }}"
+  loop_control:
+    loop_var: plugin
 
 - name: Download zsh plugin
   ansible.builtin.git:
-    repo: "{{ item.repo }}"
-    dest: /home/{{ USER }}/.oh-my-zsh/custom/plugins/{{ item.name }}
+    repo: "{{ plugin.repo }}"
+    dest: /home/{{ USER }}/.oh-my-zsh/custom/plugins/{{ plugin.name }}
+    version: "{{ plugin.version }}"
     depth: 1
   loop: "{{ missing_plugins }}"
+  loop_control:
+    loop_var: plugin
   when: missing_plugins is defined
 
 - name: Add plugins to zsh
   ansible.builtin.lineinfile:
     path: /home/{{ USER }}/.zshrc
     regexp: ^plugins=\((.*)\)
-    line: plugins=(\1 {{ item.name }})
-    backrefs: yes
+    line: plugins=(\1 {{ plugin.name }})
+    backrefs: yes # noqa: yaml[truthy]
   loop: "{{ missing_plugins }}"
+  loop_control:
+    loop_var: plugin
   when: missing_plugins is defined

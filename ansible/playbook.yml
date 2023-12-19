@@ -1,10 +1,11 @@
 ---
-- hosts: "{{ HOSTS }}"
+- name: Install and configure zsh and kvm
+  hosts: "{{ HOSTS | default('localhost') }}"
   vars_files:
     - inventories/dev/group_vars/workstation.yml
   become: true
   roles:
     - role: zsh
-      when: FLAG_ZSH == true
+      when: flag_zsh == true
     - role: kvm
-      when: FLAG_KVM == true
+      when: flag_kvm == true

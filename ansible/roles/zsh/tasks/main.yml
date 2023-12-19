@@ -7,7 +7,7 @@
   ansible.builtin.apt:
     name: zsh
 
-- name: Set zsh as default shell for {{ USER }}
+- name: Set zsh as default command for {{ USER }}
   ansible.builtin.user:
     name: "{{ USER }}"
     shell: /usr/bin/zsh
@@ -16,20 +16,21 @@
   ansible.builtin.uri:
     url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
     dest: /tmp/oh-my-zsh-install.sh
-    mode: 0777
+    mode: "0777"
     creates: /tmp/oh-my-zsh-install.sh
 
 - name: Install 'Oh My Zsh'
   become: true
   become_user: "{{ USER }}"
-  ansible.builtin.shell:
-    cmd: echo y | /tmp/oh-my-zsh-install.sh
+  ansible.builtin.command:
+    cmd: set -o pipefail && echo y | /tmp/oh-my-zsh-install.sh
     creates: /home/{{ USER }}/.oh-my-zsh
 
 - name: Install 'powerlevel10k'
   ansible.builtin.git:
     repo: https://github.com/romkatv/powerlevel10k.git
     dest: /home/{{ USER }}/.oh-my-zsh/custom/themes/powerlevel10k
+    version: v1.19.0
     depth: 1
 
 - name: Configure zsh to use 'powerlevel10k'
@@ -37,12 +38,12 @@
     path: /home/{{ USER }}/.zshrc
     regexp: ZSH_THEME=
     line: ZSH_THEME="powerlevel10k/powerlevel10k"
-  
+
 - name: Set zsh as case sensitive
   ansible.builtin.lineinfile:
     path: /home/{{ USER }}/.zshrc
     regexp: ^.*CASE_SENSITIVE=.*$
     line: CASE_SENSITIVE="true"
 
-- import_tasks: add_plugins.yml
-
+- name: Add zsh plugins
+  ansible.builtin.import_tasks: add_plugins.yml
