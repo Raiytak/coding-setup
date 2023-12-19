@@ -1,4 +1,4 @@
-flag_zsh: true
+flag_shell: true
 flag_kvm: false
 
 zsh_plugins:

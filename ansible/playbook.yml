@@ -1,11 +1,19 @@
 ---
-- name: Install and configure zsh and kvm
+- name: Install and configure vim, zsh, 'oh my zsh' and power10k
   hosts: "{{ HOSTS | default('localhost') }}"
   vars_files:
     - inventories/dev/group_vars/workstation.yml
   become: true
   roles:
-    - role: zsh
-      when: flag_zsh == true
+    - role: shell
+      when: flag_shell == true
+
+
+- name: Install and configure kvm (Kernel-based Virtual Machine)
+  hosts: "{{ HOSTS | default('localhost') }}"
+  vars_files:
+    - inventories/dev/group_vars/workstation.yml
+  become: true
+  roles:
     - role: kvm
       when: flag_kvm == true
