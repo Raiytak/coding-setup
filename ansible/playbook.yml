@@ -8,7 +8,6 @@
     - role: shell
       when: flag_shell == true
 
-
 - name: Install and configure kvm (Kernel-based Virtual Machine)
   hosts: "{{ HOSTS | default('localhost') }}"
   vars_files:
@@ -17,3 +16,12 @@
   roles:
     - role: kvm
       when: flag_kvm == true
+
+- name: Install and activate SELinux (Security Enhanced Linux)
+  hosts: "{{ HOSTS | default('localhost') }}"
+  vars_files:
+    - inventories/dev/group_vars/workstation.yml
+  become: true
+  roles:
+    - role: selinux
+      when: flag_selinux == true

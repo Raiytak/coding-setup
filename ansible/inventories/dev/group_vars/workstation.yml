@@ -1,5 +1,6 @@
 flag_shell: true
 flag_kvm: false
+flag_selinux: true
 
 zsh_plugins:
   - name: zsh-syntax-highlighting
