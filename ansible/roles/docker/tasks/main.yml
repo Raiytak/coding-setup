@@ -1,0 +1,41 @@
+---
+- name: Install Minimal Tools
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+      - curl
+      - gnupg
+
+- name: Add Docker GPG Key
+  ansible.builtin.shell:
+    cmd: |
+      set -o pipefail
+      curl -fsSL "{{ docker_repository }}/linux/ubuntu/gpg" |
+      gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    creates: /etc/apt/keyrings/docker.gpg
+
+- name: Add Docker repository
+  ansible.builtin.shell:
+    cmd: |
+      set -o pipefail
+      echo \
+      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
+      https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" |
+      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    creates: /etc/apt/sources.list.d/docker.list
+
+- name: Install docker components
+  ansible.builtin.apt:
+    update_cache: true
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+
+- name: Add user to group docker
+  user:
+    name: "{{ USER }}"
+    group: docker
+    append: true

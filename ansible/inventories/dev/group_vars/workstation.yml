@@ -1,6 +1,8 @@
-flag_shell: true
+flag_shell: false
 flag_kvm: false
-flag_selinux: true
+flag_selinux: false
+flag_minikube: true
+flag_kubectl: true
 
 zsh_plugins:
   - name: zsh-syntax-highlighting

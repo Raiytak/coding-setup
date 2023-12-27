@@ -8,7 +8,7 @@
   ansible.builtin.set_fact:
     missing_plugins: "{{ missing_plugins | default([]) + [plugin] }}"
   when: not plugin.name in zsh_plugins.stdout
-  loop: "{{ zsh_plugins }}"
+  loop: "{{ zsh_plugins | list }}"
   loop_control:
     loop_var: plugin
 
@@ -18,7 +18,7 @@
     dest: /home/{{ USER }}/.oh-my-zsh/custom/plugins/{{ plugin.name }}
     version: "{{ plugin.version }}"
     depth: 1
-  loop: "{{ missing_plugins }}"
+  loop: "{{ missing_plugins | default([]) }}"
   loop_control:
     loop_var: plugin
   when: missing_plugins is defined
@@ -29,7 +29,7 @@
     regexp: ^plugins=\((.*)\)
     line: plugins=(\1 {{ plugin.name }})
     backrefs: yes # noqa: yaml[truthy]
-  loop: "{{ missing_plugins }}"
+  loop: "{{ missing_plugins | default([]) }}"
   loop_control:
     loop_var: plugin
   when: missing_plugins is defined
