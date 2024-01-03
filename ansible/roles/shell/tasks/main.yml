@@ -45,5 +45,12 @@
     regexp: ^.*CASE_SENSITIVE=.*$
     line: CASE_SENSITIVE="true"
 
+- name: Add block of configuration
+  ansible.builtin.blockinfile:
+    path: /home/{{ USER }}/.zshrc
+    block: |
+      # Ansible managed
+      setopt ksharrays
+
 - name: Add zsh plugins
   ansible.builtin.import_tasks: add_plugins.yml

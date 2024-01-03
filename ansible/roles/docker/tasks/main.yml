@@ -35,7 +35,7 @@
       - docker-compose-plugin
 
 - name: Add user to group docker
-  user:
+  ansible.builtin.user:
     name: "{{ USER }}"
     group: docker
     append: true
