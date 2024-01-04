@@ -3,6 +3,7 @@
   hosts: "{{ HOSTS | default('localhost') }}"
   vars_files:
     - inventories/dev/default.yml
+    - inventories/dev/flags.yml
     - inventories/dev/group_vars/workstation.yml
   become: true
   roles:
