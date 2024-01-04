@@ -1,0 +1,13 @@
+---
+- name: Install 'powerlevel10k'
+  ansible.builtin.git:
+    repo: https://github.com/romkatv/powerlevel10k.git
+    dest: /home/{{ USER }}/.oh-my-zsh/custom/themes/powerlevel10k
+    version: v1.19.0
+    depth: 1
+
+- name: Configure zsh to use 'powerlevel10k'
+  ansible.builtin.lineinfile:
+    path: /home/{{ USER }}/.zshrc
+    regexp: ZSH_THEME=
+    line: ZSH_THEME="powerlevel10k/powerlevel10k"

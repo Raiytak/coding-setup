@@ -1,0 +1,27 @@
+---
+- name: Download script to install 'Oh My Zsh'
+  ansible.builtin.uri:
+    url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+    dest: /tmp/oh-my-zsh-install.sh
+    mode: "0744"
+    creates: /tmp/oh-my-zsh-install.sh
+
+- name: Install 'Oh My Zsh'
+  become: true
+  become_user: "{{ USER }}"
+  ansible.builtin.command:
+    cmd: set -o pipefail && echo y | /tmp/oh-my-zsh-install.sh
+    creates: /home/{{ USER }}/.oh-my-zsh
+
+- name: Set zsh as case sensitive
+  ansible.builtin.lineinfile:
+    path: /home/{{ USER }}/.zshrc
+    regexp: ^.*CASE_SENSITIVE=.*$
+    line: CASE_SENSITIVE="true"
+
+- name: Add block of configuration
+  ansible.builtin.blockinfile:
+    path: /home/{{ USER }}/.zshrc
+    block: |
+      # Ansible managed
+      setopt ksharrays

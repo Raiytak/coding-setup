@@ -12,45 +12,11 @@
     name: "{{ USER }}"
     shell: /usr/bin/zsh
 
-- name: Download script to install 'Oh My Zsh'
-  ansible.builtin.uri:
-    url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-    dest: /tmp/oh-my-zsh-install.sh
-    mode: "0777"
-    creates: /tmp/oh-my-zsh-install.sh
+- name: Prepare Oh My zsh
+  ansible.builtin.import_tasks: prepare_omzsh.yml
 
-- name: Install 'Oh My Zsh'
-  become: true
-  become_user: "{{ USER }}"
-  ansible.builtin.command:
-    cmd: set -o pipefail && echo y | /tmp/oh-my-zsh-install.sh
-    creates: /home/{{ USER }}/.oh-my-zsh
-
-- name: Install 'powerlevel10k'
-  ansible.builtin.git:
-    repo: https://github.com/romkatv/powerlevel10k.git
-    dest: /home/{{ USER }}/.oh-my-zsh/custom/themes/powerlevel10k
-    version: v1.19.0
-    depth: 1
-
-- name: Configure zsh to use 'powerlevel10k'
-  ansible.builtin.lineinfile:
-    path: /home/{{ USER }}/.zshrc
-    regexp: ZSH_THEME=
-    line: ZSH_THEME="powerlevel10k/powerlevel10k"
-
-- name: Set zsh as case sensitive
-  ansible.builtin.lineinfile:
-    path: /home/{{ USER }}/.zshrc
-    regexp: ^.*CASE_SENSITIVE=.*$
-    line: CASE_SENSITIVE="true"
-
-- name: Add block of configuration
-  ansible.builtin.blockinfile:
-    path: /home/{{ USER }}/.zshrc
-    block: |
-      # Ansible managed
-      setopt ksharrays
+- name: Prepare Powerlvl10k
+  ansible.builtin.import_tasks: prepare_powerlvl10k.yml
 
 - name: Add zsh plugins
-  ansible.builtin.import_tasks: add_plugins.yml
+  ansible.builtin.import_tasks: add_zsh_plugins.yml
