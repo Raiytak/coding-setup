@@ -1,3 +1,4 @@
 # Host myhostname
 #   Hostname host_ip
 #   User username
+#   IdentityFile id_ed25519
