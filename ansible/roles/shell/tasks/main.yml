@@ -20,3 +20,6 @@
 
 - name: Add zsh plugins
   ansible.builtin.import_tasks: add_zsh_plugins.yml
+
+- name: Do personal configurations
+  ansible.builtin.import_tasks: personal_configurations.yml

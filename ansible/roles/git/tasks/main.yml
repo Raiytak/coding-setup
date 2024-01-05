@@ -1,0 +1,7 @@
+---
+- name: Install git
+  ansible.builtin.apt:
+    name: git
+
+- name: Add git aliases
+  ansible.builtin.import_tasks: aliases.yml

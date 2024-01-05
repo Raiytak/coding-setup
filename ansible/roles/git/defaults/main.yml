@@ -1,0 +1,4 @@
+---
+git_aliases:
+  - name: acp
+    command: git add -A && git commit -m "$@" && git push

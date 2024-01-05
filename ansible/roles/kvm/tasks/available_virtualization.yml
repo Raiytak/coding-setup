@@ -2,6 +2,7 @@
 - name: Check processor supports virtualization
   ansible.builtin.command:  # noqa: no-changed-when
     cmd: set -o pipefail && egrep -c '(vmx|svm)' /proc/cpuinfo
+    executable: /bin/bash
   register: processor_virtualized
 
 - name: Assert processor supports virtualization

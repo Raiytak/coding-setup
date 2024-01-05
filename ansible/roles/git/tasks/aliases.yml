@@ -1,0 +1,23 @@
+---
+- name: Ensure gitconfig file exists
+  ansible.builtin.file:
+    path: /home/{{ USER }}/.gitconfig
+    state: touch
+    mode: u+rw
+  changed_when: false
+
+- name: List git aliases name # noqa: command-instead-of-module partial-become[task]
+  become_user: "{{ USER }}"
+  ansible.builtin.shell:
+    cmd: set -o pipefail && git config --global --list | grep alias | sed 's/alias\.\(.*\)=.*/\1/'
+    executable: /bin/bash
+  register: present_aliases
+  ignore_errors: true
+  changed_when: false
+
+- name: Add missing git aliases # noqa: command-instead-of-module no-changed-when partial-become[task]
+  become_user: "{{ USER }}"
+  ansible.builtin.shell:
+    cmd: git config --global alias.{{ item.name }} '!f() { {{ item.command }}; }; f'
+  with_items: "{{ git_aliases }}"
+  when: not item.name in present_aliases.stdout_lines

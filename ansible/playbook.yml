@@ -1,5 +1,5 @@
 ---
-- name: Install and configure vim, zsh, 'oh my zsh' and power10k
+- name: Prepare basic configurations
   hosts: "{{ HOSTS | default('localhost') }}"
   vars_files:
     - inventories/dev/default.yml
@@ -7,15 +7,29 @@
     - inventories/dev/group_vars/workstation.yml
   become: true
   roles:
+    - role: git
+      when: flag_git == true
     - role: shell
       when: flag_shell == true
-    - role: kvm
-      when: flag_kvm == true
-    - role: selinux
-      when: flag_selinux == true
+    - role: ssh
+      when: flag_ssh == true
+
+
+- name: Prepare fancy tools
+  hosts: "{{ HOSTS | default('localhost') }}"
+  vars_files:
+    - inventories/dev/default.yml
+    - inventories/dev/flags.yml
+    - inventories/dev/group_vars/workstation.yml
+  become: true
+  roles:
     - role: docker
-      when: flag_minikube == true
-    - role: minikube
       when: flag_minikube == true
     - role: kubectl
       when: flag_kubectl == true
+    - role: kvm
+      when: flag_kvm == true
+    - role: minikube
+      when: flag_minikube == true
+    - role: selinux
+      when: flag_selinux == true

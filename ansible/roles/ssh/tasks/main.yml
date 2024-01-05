@@ -1,0 +1,11 @@
+---
+- name: Install SSH
+  ansible.builtin.apt:
+    name: openssh-server
+
+- name: Create empty generic ssh config file
+  ansible.builtin.copy:
+    src: files/conf
+    dest: /home/{{ USER }}/.ssh/config
+    mode: u+rw
+    force: false

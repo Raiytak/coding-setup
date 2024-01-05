@@ -1,6 +1,9 @@
 ---
+flag_git: true
 flag_shell: true
-flag_kvm: false
-flag_selinux: false
-flag_minikube: false
+flag_ssh: true
+
 flag_kubectl: false
+flag_kvm: false
+flag_minikube: false
+flag_selinux: false

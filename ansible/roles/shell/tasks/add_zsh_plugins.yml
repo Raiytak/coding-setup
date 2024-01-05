@@ -4,6 +4,7 @@
     cmd: set -o pipefail && cat /home/{{ USER }}/.zshrc | sed -n 's/^plugins=[^(]*(\([^)]*\).*/\1/p'
     executable: /bin/bash
   register: found_zsh_plugins
+  changed_when: false
 
 - name: List missing plugins
   ansible.builtin.set_fact:
