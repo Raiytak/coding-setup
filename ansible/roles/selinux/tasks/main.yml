@@ -1,7 +1,0 @@
----
-- name: Install SELinux
-  ansible.builtin.apt:
-    name:
-      - selinux-utils
-      - selinux-basics
-      - policycoreutils
