@@ -1,7 +1,7 @@
 ---
 - name: Install SSH
   ansible.builtin.apt:
-    name: openssh-server
+    name: openssh-client
 
 - name: Create empty generic ssh config file
   ansible.builtin.copy:

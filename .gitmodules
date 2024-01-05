@@ -1,0 +1,3 @@
+[submodule "scripts/minimal-bash-scripts"]
+	path = scripts/minimal-bash-scripts
+	url = https://github.com/Raiytak/minimal-bash-scripts.git
