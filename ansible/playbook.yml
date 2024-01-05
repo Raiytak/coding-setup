@@ -31,5 +31,3 @@
       when: flag_kvm == true
     - role: minikube
       when: flag_minikube == true
-    - role: selinux
-      when: flag_selinux == true

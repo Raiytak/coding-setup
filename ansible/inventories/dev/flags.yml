@@ -6,4 +6,3 @@ flag_ssh: true
 flag_kubectl: false
 flag_kvm: false
 flag_minikube: false
-flag_selinux: false
