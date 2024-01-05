@@ -3,6 +3,6 @@ shell_aliases:
   - name: ssh-config
     command: "cat ~/.ssh/config"
   - name: t
-    command: "mkdir ~/tmp 2>/dev/null && cd ~/tmp"
+    command: "mkdir ~/tmp 2>/dev/null; cd ~/tmp"
   - name: rmt
     command: "cd ~ && rm -rf ~/tmp 2>/dev/null"
