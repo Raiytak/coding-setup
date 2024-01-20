@@ -1,0 +1,25 @@
+---
+- name: Add GNS3 apt repository
+  ansible.builtin.apt_repository:
+    repo: ppa:gns3/ppa
+
+- name: Install tools for GNS3
+  ansible.builtin.apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+
+- name: Install GNS3
+  ansible.builtin.apt:
+    name:
+      - gns3-gui
+      - gns3-server
+    update_cache: true
+
+- name: Add user to desire groups
+  ansible.builtin.user:
+    name: "{{ TARGET_USER }}"
+    groups: ubridge,libvirt,kvm,wireshark,docker
+    append: true

@@ -6,7 +6,15 @@
     enabled: true
 
 - name: Apply netplan
-  ansible.builtin.command: # noqa: no-changed-when
+  ansible.builtin.command:
     cmd: netplan apply
   async: 45
   poll: 0
+  changed_when: true
+  listen: "[kvm] Changed network"
+
+- name: Enable virtual manager the first time in sudo
+  ansible.builtin.shell:
+    cmd: newgrp libvirt && virt-manager
+  changed_when: true
+  listen: "[kvm] Changed network"

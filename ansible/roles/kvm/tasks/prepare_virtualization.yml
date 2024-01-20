@@ -13,7 +13,7 @@
 
 - name: Add user to groups kvm and libvirt
   ansible.builtin.user:
-    name: "{{ USER }}"
+    name: "{{ TARGET_USER }}"
     groups:
       - kvm
       - libvirt
@@ -25,4 +25,4 @@
     dest: /etc/netplan/01-netcfg.yaml
     mode: '0600'
     force: false
-  notify: Apply netplan
+  notify: "[kvm] Changed network"

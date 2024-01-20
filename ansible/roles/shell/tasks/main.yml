@@ -7,9 +7,9 @@
   ansible.builtin.apt:
     name: zsh
 
-- name: Set zsh as default command for {{ USER }}
+- name: Set zsh as default command for {{ TARGET_USER }}
   ansible.builtin.user:
-    name: "{{ USER }}"
+    name: "{{ TARGET_USER }}"
     shell: /usr/bin/zsh
 
 - name: Prepare Oh My zsh

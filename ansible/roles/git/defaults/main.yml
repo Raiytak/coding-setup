@@ -1,4 +1,12 @@
 ---
 git_aliases:
+  - name: ac
+    command: git add -A && git commit -m "$@"
   - name: acp
     command: git add -A && git commit -m "$@" && git push
+  - name: acpf
+    command: git add -A && git commit -m "$@" && git push --force
+  - name: save
+    command: branch=$(git rev-parse --short HEAD); git branch -D $branch 2>/dev/null; git checkout -b $branch-save && git checkout $branch
+  - name: adog
+    command: git log --all --decorate --oneline --graph

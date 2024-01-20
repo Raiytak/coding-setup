@@ -1,7 +1,7 @@
 ---
 - name: Get zsh current plugins
   ansible.builtin.shell: # noqa: no-changed-when
-    cmd: set -o pipefail && cat /home/{{ USER }}/.zshrc | sed -n 's/^plugins=[^(]*(\([^)]*\).*/\1/p'
+    cmd: set -o pipefail && cat /home/{{ TARGET_USER }}/.zshrc | sed -n 's/^plugins=[^(]*(\([^)]*\).*/\1/p'
     executable: /bin/bash
   register: found_zsh_plugins
   changed_when: false
@@ -17,7 +17,7 @@
 - name: Download zsh plugin
   ansible.builtin.git:
     repo: "{{ plugin.repo }}"
-    dest: /home/{{ USER }}/.oh-my-zsh/custom/plugins/{{ plugin.name }}
+    dest: "/home/{{ TARGET_USER }}/.oh-my-zsh/custom/plugins/{{ plugin.name }}"
     version: "{{ plugin.version }}"
     depth: 1
   loop: "{{ missing_plugins | default([]) }}"
@@ -27,7 +27,7 @@
 
 - name: Add plugins to zsh
   ansible.builtin.lineinfile:
-    path: /home/{{ USER }}/.zshrc
+    path: "/home/{{ TARGET_USER }}/.zshrc"
     regexp: ^plugins=\((.*)\)
     line: plugins=(\1 {{ plugin.name }})
     backrefs: yes # noqa: yaml[truthy]

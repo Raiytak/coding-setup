@@ -1,10 +1,9 @@
 ---
 - name: Prepare basic configurations
-  hosts: "{{ HOSTS | default('localhost') }}"
+  hosts: "{{ TARGET_HOST | default('localhost') }}"
   vars_files:
     - inventories/dev/default.yml
     - inventories/dev/flags.yml
-    - inventories/dev/group_vars/workstation.yml
   become: true
   roles:
     - role: git
@@ -16,15 +15,18 @@
 
 
 - name: Prepare fancy tools
-  hosts: "{{ HOSTS | default('localhost') }}"
+  hosts: "{{ TARGET_HOST | default('localhost') }}"
   vars_files:
     - inventories/dev/default.yml
     - inventories/dev/flags.yml
-    - inventories/dev/group_vars/workstation.yml
   become: true
   roles:
+    - role: gns3
+      when: flag_gns3 == true
     - role: docker
-      when: flag_minikube == true
+      when: (flag_docker == true)
+        or (flag_gns3 == true)
+        or (flag_minikube == true)
     - role: kubectl
       when: flag_kubectl == true
     - role: kvm
