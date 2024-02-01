@@ -1,6 +1,6 @@
 ---
 - name: Prepare basic configurations
-  hosts: "{{ TARGET_HOST | default('localhost') }}"
+  hosts: "{{ TARGET_HOST | default([]) }}"
   vars_files:
     - inventories/dev/default.yml
     - inventories/dev/flags.yml
@@ -15,7 +15,7 @@
 
 
 - name: Prepare fancy tools
-  hosts: "{{ TARGET_HOST | default('localhost') }}"
+  hosts: "{{ TARGET_HOST | default([]) }}"
   vars_files:
     - inventories/dev/default.yml
     - inventories/dev/flags.yml
