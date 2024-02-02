@@ -20,6 +20,6 @@
 
 - name: Add user to desire groups
   ansible.builtin.user:
-    name: "{{ TARGET_USER }}"
+    name: "{{ target_user }}"
     groups: ubridge,libvirt,kvm,wireshark,docker
     append: true

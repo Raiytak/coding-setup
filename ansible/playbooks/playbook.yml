@@ -1,0 +1,17 @@
+---
+- name: Prepare fancy tools
+  hosts: "{{ target_host | default([]) }}"
+  become: true
+  roles:
+    - role: gns3
+      when: flag_gns3 == true
+    - role: docker
+      when: (flag_docker == true)
+        or (flag_gns3 == true)
+        or (flag_minikube == true)
+    - role: kubectl
+      when: flag_kubectl == true
+    - role: kvm
+      when: flag_kvm == true
+    - role: minikube
+      when: flag_minikube == true

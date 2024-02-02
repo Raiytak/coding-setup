@@ -1,0 +1,3 @@
+[defaults]
+roles_path = ROLES_PATH
+ansible_python_interpreter = mysqlclient

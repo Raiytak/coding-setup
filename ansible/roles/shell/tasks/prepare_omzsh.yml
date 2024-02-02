@@ -7,21 +7,21 @@
     creates: /tmp/oh-my-zsh-install.sh
 
 - name: Install 'Oh My Zsh' # noqa: partial-become[task]
-  become_user: "{{ TARGET_USER }}"
+  become_user: "{{ target_user }}"
   ansible.builtin.shell:
     cmd: set -o pipefail && echo y | /tmp/oh-my-zsh-install.sh
-    creates: "/home/{{ TARGET_USER }}/.oh-my-zsh"
+    creates: "/home/{{ target_user }}/.oh-my-zsh"
     executable: /bin/bash
 
 - name: Set zsh as case sensitive
   ansible.builtin.lineinfile:
-    path: "/home/{{ TARGET_USER }}/.zshrc"
+    path: "/home/{{ target_user }}/.zshrc"
     regexp: ^.*CASE_SENSITIVE=.*$
     line: CASE_SENSITIVE="true"
 
 - name: Add block of configuration
   ansible.builtin.blockinfile:
-    path: "/home/{{ TARGET_USER }}/.zshrc"
+    path: "/home/{{ target_user }}/.zshrc"
     block: |
       # Ansible managed
       setopt ksharrays

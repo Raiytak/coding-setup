@@ -38,6 +38,6 @@
 
 - name: Add user to group docker
   ansible.builtin.user:
-    name: "{{ TARGET_USER }}"
+    name: "{{ target_user }}"
     groups: docker
     append: true

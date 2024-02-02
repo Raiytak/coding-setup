@@ -1,4 +1,0 @@
----
-- name: Start minikube # noqa: no-changed-when
-  ansible.builtin.command:
-    cmd: minikube start --driver=docker

@@ -6,6 +6,6 @@
 - name: Create empty generic ssh config file
   ansible.builtin.copy:
     src: files/conf
-    dest: "/home/{{ TARGET_USER }}/.ssh/config"
+    dest: "/home/{{ target_user }}/.ssh/config"
     mode: u+rw
     force: false

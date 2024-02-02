@@ -1,12 +1,12 @@
 ---
 - name: Add profile in zshrc
   ansible.builtin.lineinfile:
-    path: "/home/{{ TARGET_USER }}/.zshrc"
+    path: "/home/{{ target_user }}/.zshrc"
     line: source ~/.profile
 
 - name: Add bash aliases to profile
   ansible.builtin.lineinfile:
-    path: "/home/{{ TARGET_USER }}/.profile"
+    path: "/home/{{ target_user }}/.profile"
     line: alias {{ aliase.name }}='{{ aliase.command }}'
   loop: "{{ shell_aliases }}"
   loop_control:

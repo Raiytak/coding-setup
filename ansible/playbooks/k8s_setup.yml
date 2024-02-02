@@ -1,0 +1,13 @@
+---
+- name: Prepare K8S dev setup
+  hosts: "{{ target_host | default([]) }}"
+  become: true
+  roles:
+    - role: docker
+    - role: kubectl
+    - role: minikube
+  post_tasks:
+    - name: Show user command to start minikube
+      ansible.builtin.debug:
+        msg: "You can now start minikube on '{{ ansible_hostname }}' with the command 'minikube start'"
+    
