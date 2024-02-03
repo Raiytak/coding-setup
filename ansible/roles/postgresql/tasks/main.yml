@@ -1,0 +1,17 @@
+---
+- name: Add PostgreSQL apt key
+  ansible.builtin.shell:
+    cmd: "set -o pipefail && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor | tee {{ postgresql_keyring }}"
+    executable: /bin/bash
+    creates: "{{ postgresql_keyring }}"
+
+- name: Add PostgreSQL apt repository configuration
+  ansible.builtin.shell:
+    cmd: 'echo "deb [signed-by={{ postgresql_keyring }}] https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > {{ postgresql_apt_config }}'
+    executable: /bin/bash
+    creates: "{{ postgresql_apt_config }}"
+
+- name: Install specified version of PostgreSQL
+  ansible.builtin.apt:
+    name: "postgresql-{{ postgresql_version }}"
+    update_cache: true

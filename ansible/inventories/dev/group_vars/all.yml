@@ -8,3 +8,5 @@ zsh_plugins:
   - name: zsh-syntax-highlighting
     repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
     version: 0.8.0
+
+keyrings: /usr/share/keyrings

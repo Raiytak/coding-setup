@@ -1,0 +1,6 @@
+---
+- name: Prepare network setup
+  hosts: "{{ target_host | default([]) }}"
+  become: true
+  roles:
+    - role: gns3

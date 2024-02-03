@@ -1,0 +1,4 @@
+---
+postgresql_apt_config: /etc/apt/sources.list.d/pgdg.list
+postgresql_keyring: "{{ keyrings }}/postgresql-archive-keyring.gpg"
+postgresql_version: 16
