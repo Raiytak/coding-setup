@@ -1,8 +1,0 @@
----
-- name: Prepare network setup
-  hosts: "{{ target_host | default([]) }}"
-  become: true
-  roles:
-    # - role: nginx
-    - role: postgresql
-    # - role: kanboard

@@ -1,6 +1,6 @@
 ---
 - name: Get zsh current plugins
-  ansible.builtin.shell: # noqa: no-changed-when
+  ansible.builtin.shell:
     cmd: set -o pipefail && cat /home/{{ target_user }}/.zshrc | sed -n 's/^plugins=[^(]*(\([^)]*\).*/\1/p'
     executable: /bin/bash
   register: found_zsh_plugins
@@ -10,7 +10,7 @@
   ansible.builtin.set_fact:
     missing_plugins: "{{ missing_plugins | default([]) + [plugin] }}"
   when: not plugin.name in found_zsh_plugins.stdout
-  loop: "{{ zsh_plugins | list }}"
+  loop: "{{ shell_zsh_plugins | list }}"
   loop_control:
     loop_var: plugin
 

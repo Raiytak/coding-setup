@@ -11,10 +11,3 @@
     path: "/home/{{ target_user }}/.zshrc"
     regexp: ZSH_THEME=
     line: ZSH_THEME="powerlevel10k/powerlevel10k"
-
-- name: Configure powerlevel10k profile
-  ansible.builtin.copy:
-    src: "files/{{ shell_p10k_configuration }}"
-    dest: "/home/{{ target_user }}/.p10k.zsh"
-    mode: "0700"
-    force: false

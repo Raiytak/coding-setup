@@ -7,7 +7,6 @@
     creates: /tmp/oh-my-zsh-install.sh
 
 - name: Install 'Oh My Zsh' # noqa: partial-become[task]
-  become_user: "{{ target_user }}"
   ansible.builtin.shell:
     cmd: set -o pipefail && echo y | /tmp/oh-my-zsh-install.sh
     creates: "/home/{{ target_user }}/.oh-my-zsh"

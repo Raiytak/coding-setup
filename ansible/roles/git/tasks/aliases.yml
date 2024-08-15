@@ -7,7 +7,6 @@
   changed_when: false
 
 - name: List git aliases name # noqa: command-instead-of-module partial-become[task]
-  become_user: "{{ target_user }}"
   ansible.builtin.shell:
     cmd: set -o pipefail && git config --global --list | grep alias | sed 's/alias\.\(.*\)=.*/\1/'
     executable: /bin/bash
@@ -16,13 +15,12 @@
   changed_when: false
 
 - name: Add missing git aliases # noqa: command-instead-of-module partial-become[task]
-  become_user: "{{ target_user }}"
   ansible.builtin.shell:
-    cmd: set -o pipefail && git config --global alias.{{ aliase.name }} '!f() { {{ aliase.command }}; }; f'
+    cmd: set -o pipefail && git config --global alias.{{ aliase.key }} '!f() { {{ aliase.value }}; }; f'
     executable: /bin/bash
-  loop: "{{ git_aliases }}"
+  loop: "{{ git_aliases | dict2items }}"
   loop_control:
     loop_var: aliase
-    label: aliase.name
-  when: not aliase.name in present_aliases.stdout_lines
+    label: aliase.key
+  when: not aliase.key in present_aliases.stdout_lines
   changed_when: present_aliases.stdout_lines == ""
