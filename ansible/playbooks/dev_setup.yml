@@ -5,4 +5,10 @@
   roles:
     - role: git
     - role: shell
+      become_user: "{{ target_user }}"
     - role: ssh
+    - role: kubectl
+    - role: kvm
+      tags:
+        - never
+        - install_kvm

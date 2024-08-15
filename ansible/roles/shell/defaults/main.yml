@@ -1,12 +1,13 @@
 ---
-shell_aliases:
-  - name: ssh-config
-    command: "cat ~/.ssh/config"
-  - name: t
-    command: "mkdir ~/tmp 2>/dev/null; cd ~/tmp"
-  - name: rmt
-    command: "cd ~ && rm -rf ~/tmp 2>/dev/null"
-  - name: userz
-    command: cat /etc/passwd | awk -F ':' '$3>=1000 {print $1}'
+shell_kubectl_version: v1.29
 
-shell_p10k_configuration: "mathieu_salaun.p10k.zsh"
+shell_zsh_plugins:
+  - name: zsh-syntax-highlighting
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    version: 0.8.0
+
+shell_aliases:
+  ssh-config: "cat ~/.ssh/config"
+  t: "mkdir ~/tmp 2>/dev/null; cd ~/tmp"
+  rmt: "cd ~ && rm -rf ~/tmp 2>/dev/null"
+  userz: "cat /etc/passwd | awk -F ':' '$3>=1000 {print $1}'"
