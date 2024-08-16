@@ -1,7 +1,6 @@
 ---
 - name: Prepare basic setup
   hosts: "{{ target_host | default([]) }}"
-  become: true
   roles:
     - role: git
     - role: shell

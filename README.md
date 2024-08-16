@@ -7,7 +7,7 @@ Download the zip of the project, unzip.
 Run:
 ```
 ./scripts/install_ansible.sh
-ansible-playbook ansible/playbook.yml --ask-become-pass --extra-vars "target_host=localhost target_user=$(whoami)"
+ansible-playbook ansible/playbook.yml --ask-become-pass --become --extra-vars "target_host=localhost target_user=$(whoami)"
 ```
 
 You can also install KVM by adding `--tags "all,install_kvm"`
@@ -16,6 +16,7 @@ You can also install KVM by adding `--tags "all,install_kvm"`
 * Prompt Style: (3)
 * Character Set: (1)
 * Show current time?: (2)
+* Prompt Separators: (1)
 * Prompt Heads: (1)
 * Prompt Tails: (1)
 * Prompt Height: (2)
