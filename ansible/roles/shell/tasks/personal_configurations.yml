@@ -3,6 +3,8 @@
   ansible.builtin.lineinfile:
     path: "/home/{{ target_user }}/.profile"
     line: alias {{ alias.key }}='{{ alias.value }}'
+    owner: "{{ target_user }}"
+    mode: '0640'
     create: true
   loop: "{{ shell_aliases | dict2items }}"
   loop_control:

@@ -1,13 +1,18 @@
-# coding-setup
+# Coding Setup
 
 Ansible scripts to configure a new workstation.
-To install, download the zip of the project, unzip and run:
+
+# Installation
+Download the zip of the project, unzip.
+Run:
 ```
-./scripts/prepare_target.sh
-./scripts/run_ansible.sh --target-host localhost --target-user $(whoami)
+./scripts/install_ansible.sh
+ansible-playbook ansible/playbook.yml --ask-become-pass --extra-vars "target_host=localhost target_user=$(whoami)"
 ```
 
-Advised ohmyzsh configuration:
+You can also install KVM by adding `--tags "all,install_kvm"`
+
+# Preferred Oh-My-ZSH configuration
 * Prompt Style: (3)
 * Character Set: (1)
 * Show current time?: (2)
