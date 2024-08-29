@@ -6,3 +6,4 @@ git_aliases:
   adog: git log --all --decorate --oneline --graph
   st: status
   save: branch=$(git rev-parse --short HEAD); git branch -D ${branch} 2>/dev/null; git checkout -b ${branch}-save && git checkout ${branch}
+  fr: git fetch origin $1:$1 && git rebase $1
