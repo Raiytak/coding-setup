@@ -4,6 +4,8 @@ git_aliases:
   acp: git add -A && git commit -m "$@" && git push
   acpf: git add -A && git commit -m "$@" && git push --force
   adog: git log --all --decorate --oneline --graph
+  co: git checkout $1
+  fr: git fetch origin $1:$1 && git rebase $1
+  p: git pull
   st: status
   save: branch=$(git rev-parse --short HEAD); git branch -D ${branch} 2>/dev/null; git checkout -b ${branch}-save && git checkout ${branch}
-  fr: git fetch origin $1:$1 && git rebase $1
