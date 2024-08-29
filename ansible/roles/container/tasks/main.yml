@@ -1,0 +1,4 @@
+---
+- name: Install Podman
+  ansible.builtin.apt:
+    name: podman

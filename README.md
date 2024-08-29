@@ -31,3 +31,10 @@ You can also install KVM by adding `--tags "all,install_kvm"`
 Optional:
 * Overwrite ~/.p10k.zsh?: (y)
 * Apply changes to ~/.zshrc?: (y)
+
+# Install and use pre-commit
+```
+apt install pre-commit
+pre-commit install
+pre-commit
+```
