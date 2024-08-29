@@ -6,6 +6,7 @@
     - role: shell
       become_user: "{{ target_user }}"
     - role: ssh
+    - role: container
     - role: kubectl
     - role: kvm
       tags:
