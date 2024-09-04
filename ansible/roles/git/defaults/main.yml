@@ -9,3 +9,4 @@ git_aliases:
   p: git pull
   st: status
   save: branch=$(git rev-parse --short HEAD); git branch -D ${branch} 2>/dev/null; git checkout -b ${branch}-save && git checkout ${branch}
+  update-tags: git tag -l | xargs git tag --delete && git fetch --tags
