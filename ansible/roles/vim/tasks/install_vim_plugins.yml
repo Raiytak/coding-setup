@@ -1,0 +1,11 @@
+---
+- name: Add vim plugins
+  ansible.builtin.lineinfile:
+    path: "/home/{{ target_user }}/.vimrc"
+    line: "Plug {{ plugin }}"
+    insertbefore: 'call plug#end()'
+  loop: "{{ vim_plugins }}"
+  loop_control:
+    loop_var: plugin
+  register: add_vim_plugins
+  notify: install-vim-plugins

@@ -32,6 +32,8 @@ Optional:
 * Overwrite ~/.p10k.zsh?: (y)
 * Apply changes to ~/.zshrc?: (y)
 
+To restart: `p10k configure`
+
 # Install and use pre-commit
 ```
 apt install pre-commit

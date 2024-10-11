@@ -4,9 +4,8 @@
   roles:
     - role: git
     - role: shell
-      become_user: "{{ target_user }}"
+    - role: vim
     - role: ssh
-    - role: container
     - role: kubectl
     - role: kvm
       tags:

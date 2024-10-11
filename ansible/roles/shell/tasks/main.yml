@@ -1,15 +1,24 @@
 ---
 - name: Basic shell preparations
   ansible.builtin.import_tasks: basic_installations.yml
+  become: true
 
 - name: Prepare Oh My zsh
   ansible.builtin.import_tasks: prepare_omzsh.yml
+  become: true
+  become_user: "{{ target_user }}"
 
 - name: Prepare Powerlvl10k
   ansible.builtin.import_tasks: prepare_powerlvl10k.yml
+  become: true
+  become_user: "{{ target_user }}"
 
 - name: Add zsh plugins
   ansible.builtin.import_tasks: add_zsh_plugins.yml
+  become: true
+  become_user: "{{ target_user }}"
 
 - name: Set up personal configurations
   ansible.builtin.import_tasks: personal_configurations.yml
+  become: true
+  become_user: "{{ target_user }}"

@@ -3,7 +3,7 @@
   ansible.builtin.file:
     path: "/home/{{ target_user }}/.gitconfig"
     state: touch
-    mode: u+rw
+    mode: '0644'
   changed_when: false
 
 - name: List git aliases name # noqa: command-instead-of-module partial-become[task]

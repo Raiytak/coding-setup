@@ -1,0 +1,14 @@
+---
+- name: Install VIM
+  ansible.builtin.apt:
+    name: vim
+
+- name: Install vim plug
+  ansible.builtin.import_tasks: install_vim_plug.yml
+  become: true
+  become_user: "{{ target_user }}"
+
+- name: Install vim wiki
+  ansible.builtin.import_tasks: install_vim_plugins.yml
+  become: true
+  become_user: "{{ target_user }}"

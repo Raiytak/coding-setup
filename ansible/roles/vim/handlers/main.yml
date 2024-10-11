@@ -1,0 +1,7 @@
+---
+- name: Install plugins
+  listen: install-vim-plugins
+  ansible.builtin.command:
+    cmd: vim +PlugInstall +qall
+  when: add_vim_plugins.changed
+  changed_when: true

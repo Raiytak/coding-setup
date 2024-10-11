@@ -17,6 +17,8 @@
     path: "/home/{{ target_user }}/.zshrc"
     regexp: ^.*CASE_SENSITIVE=.*$
     line: CASE_SENSITIVE="true"
+    create: true
+    mode: '0644'
 
 - name: Add block of configuration
   ansible.builtin.blockinfile:
@@ -24,3 +26,4 @@
     block: |
       # Ansible managed
       setopt ksharrays
+    mode: '0644'

@@ -1,8 +1,4 @@
 ---
-- name: Install vim
-  ansible.builtin.apt:
-    name: vim
-
 - name: Install zsh
   ansible.builtin.apt:
     name: zsh
