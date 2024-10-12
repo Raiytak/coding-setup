@@ -96,7 +96,7 @@ function! DeleteUnfinishedTasksAndMarkAsCopied()
 
         " If we are in the 'Next day' section, check for undone tasks
         if l:next_day_section
-            if !(l:line =~ '\[X\]')  " Delete non-completed tasks
+            if (l:line =~ '\[ \]')  " Delete non-completed tasks
                 call delete(line('.') - 1)  " Deletes the current line
                 let l:modification_done = 1
                 continue
