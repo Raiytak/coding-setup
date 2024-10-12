@@ -1,11 +1,24 @@
 ---
-- name: Add autoload configs
+- name: Add vimrc configs
   ansible.builtin.blockinfile:
     path: "/home/{{ target_user }}/.vimrc"
     block: "{{ lookup('file', item) }}"
-    marker: '" {mark} ANSIBLE MANAGED BLOCK'
+    marker: '" {mark} ANSIBLE MANAGED BLOCK: {{ item | basename }}'
     mode: '0644'
     create: true
+  with_fileglob: 'files/vimrc/*.vim'
+
+- name: Create autoload directory
+  ansible.builtin.file:
+    path: "/home/{{ target_user }}/.vim/autoload/"
+    state: directory
+    mode: '0755'
+
+- name: Add autoload configs
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "/home/{{ target_user }}/.vim/autoload"
+    mode: '0644'
   with_fileglob: 'files/autoload/*.vim'
 
 - name: Create template directory
