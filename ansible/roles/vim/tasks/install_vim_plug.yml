@@ -1,12 +1,16 @@
 ---
 - name: Create vim directory
   ansible.builtin.file:
-    dest: "/home/{{ target_user }}/.vim/autoload"
+    dest: "/home/{{ target_user }}/{{ directory }}"
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
     mode: '0755'
     state: directory
-    recurse: true
+  loop:
+    - .vim
+    - .vim/autoload
+  loop_control:
+    loop_var: directory
 
 - name: Install vim plug
   ansible.builtin.uri:

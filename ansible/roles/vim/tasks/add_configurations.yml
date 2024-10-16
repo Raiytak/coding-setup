@@ -17,7 +17,7 @@
 - name: Add autoload configs
   ansible.builtin.copy:
     src: "{{ item }}"
-    dest: "/home/{{ target_user }}/.vim/autoload"
+    dest: "/home/{{ target_user }}/.vim/autoload/"
     mode: '0644'
   with_fileglob: 'files/autoload/*.vim'
 
