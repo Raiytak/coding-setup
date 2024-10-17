@@ -38,24 +38,24 @@ function! InsertDiaryTemplate()
 
     " Insert the template into the new diary entry
     call append(0, l:template)
-    " Write the changes to the file
+    write
 endfunction
 
 function! InsertPreviousDayUnfinishedTasks()
     let l:lines = GetPreviousDayDiary()
     let l:unfinished_tasks = []
-    let l:next_day_section = 0
+    let l:unfinished_tasks_section = 0
 
     for l:line in l:lines
-        if l:line =~ '^# Next day'
-            let l:next_day_section = 1
+        if (l:line =~ '^# Next day') || (l:line =~ '^# TODOs')
+            let l:unfinished_tasks_section = 1
             continue
-        elseif l:line =~ '^#'
-            let l:next_day_section = 0
+        elseif l:line =~ '^# '
+            let l:unfinished_tasks_section = 0
         endif
 
         " If we are in the 'Next day' section, check for undone tasks
-        if l:next_day_section
+        if l:unfinished_tasks_section
             if !(l:line =~ '\[X\]' || empty(trim(l:line)))  " Copy non-completed tasks
                 call add(l:unfinished_tasks, l:line)
                 continue
@@ -80,32 +80,24 @@ function! DeleteUnfinishedTasksAndMarkAsCopied()
     let l:lines = GetPreviousDayDiary()
     let l:prev_date = strftime("%Y-%m-%d", localtime() - 86400)
     let l:prev_file = expand("~/vimwiki/diary/" . l:prev_date . ".md")  " Previous diary file path
-    let l:new_lines = []
-    let l:next_day_section = 0
+    let l:unfinished_tasks_section = 0
     let l:modification_done = 0
 
     for l:line in l:lines
-        " Determine if we are in the 'Next day' section
-        if l:line =~ '^# Next day'
-            let l:next_day_section = 1
-            call add(l:new_lines, l:line)
+        if (l:line =~ '^# Next day') || (l:line =~ '^# TODOs')
+            let l:unfinished_tasks_section = 1
             continue
-        elseif l:line =~ '^#'
-            let l:next_day_section = 0
+        elseif l:line =~ '^# '
+            let l:unfinished_tasks_section = 0
         endif
 
         " If we are in the 'Next day' section, check for undone tasks
-        if l:next_day_section
-            if (l:line =~ '\[ \]')  " Delete non-completed tasks
+        if l:unfinished_tasks_section
+            if (l:line =~ '\[[^X]\]') " Delete non-completed tasks
                 call delete(line('.') - 1)  " Deletes the current line
                 let l:modification_done = 1
                 continue
             endif
-        endif
-
-        " Add other lines that are not tasks to new_lines
-        if !(l:line =~ '^- \[.\] ') || !(l:next_day_section)
-            call add(l:new_lines, l:line)
         endif
     endfor
 
@@ -118,9 +110,9 @@ function! DeleteUnfinishedTasksAndMarkAsCopied()
 endfunction
 
 " Automatically call the function when creating a new diary entry file
-function! SetupDiaryEntry()
+function! vim_diary_newfile#SetupDiaryEntry()
+    call InsertDiaryTemplate()
     if PreviousDayDiaryExists()
-        call InsertDiaryTemplate()
         call InsertPreviousDayUnfinishedTasks()
         call DeleteUnfinishedTasksAndMarkAsCopied()
     endif

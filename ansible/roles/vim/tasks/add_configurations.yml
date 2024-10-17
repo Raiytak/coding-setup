@@ -18,7 +18,7 @@
   ansible.builtin.copy:
     src: "{{ item }}"
     dest: "/home/{{ target_user }}/.vim/autoload/"
-    mode: '0644'
+    mode: '0755'
   with_fileglob: 'files/autoload/*.vim'
 
 - name: Create template directory
