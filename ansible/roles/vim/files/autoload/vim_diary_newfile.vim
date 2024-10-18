@@ -47,7 +47,7 @@ function! InsertPreviousDayUnfinishedTasks()
     let l:unfinished_tasks_section = 0
 
     for l:line in l:lines
-        if (l:line =~ '^# Next day') || (l:line =~ '^# TODOs')
+        if (l:line =~ '^# Next day') || (l:line =~ '^# Tasks')
             let l:unfinished_tasks_section = 1
             continue
         elseif l:line =~ '^# '
@@ -66,9 +66,9 @@ function! InsertPreviousDayUnfinishedTasks()
     if !empty(l:unfinished_tasks)
         " Reverse the order of unfinished_tasks to maintain the correct sequence
         call reverse(l:unfinished_tasks)
-        " Find the line number of the TODOs section
-        let l:todo_line = search('# TODOs', 'w')
-        " Insert unfinished_tasks under the TODOs section
+        " Find the line number of the Tasks section
+        let l:todo_line = search('# Tasks', 'w')
+        " Insert unfinished_tasks under the Tasks section
         for l:task in l:unfinished_tasks
             call append(line('.'), l:task)
         endfor
@@ -82,9 +82,15 @@ function! DeleteUnfinishedTasksAndMarkAsCopied()
     let l:prev_file = expand("~/vimwiki/diary/" . l:prev_date . ".md")  " Previous diary file path
     let l:unfinished_tasks_section = 0
     let l:modification_done = 0
+    let l:new_lines = []
 
     for l:line in l:lines
-        if (l:line =~ '^# Next day') || (l:line =~ '^# TODOs')
+        " Add lines that are not finised tasks to new_lines
+        if (l:line !~ '\[[^X]\]')
+            call add(l:new_lines, l:line)
+        endif
+
+        if (l:line =~ '^# Next day') || (l:line =~ '^# Tasks')
             let l:unfinished_tasks_section = 1
             continue
         elseif l:line =~ '^# '
@@ -93,7 +99,7 @@ function! DeleteUnfinishedTasksAndMarkAsCopied()
 
         " If we are in the 'Next day' section, check for undone tasks
         if l:unfinished_tasks_section
-            if (l:line =~ '\[[^X]\]') " Delete non-completed tasks
+            if (l:line !~ '\[X\]') " Delete non-completed tasks
                 call delete(line('.') - 1)  " Deletes the current line
                 let l:modification_done = 1
                 continue

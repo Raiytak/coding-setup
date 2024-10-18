@@ -1,7 +1,4 @@
-# Scrum 📓
-
-
-# TODOs ✅
+# Tasks ✅
 
 
 # Story telling 🏖️
