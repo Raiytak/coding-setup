@@ -37,7 +37,7 @@ function! InsertDiaryTemplate()
     let l:template = readfile(l:template_file)
 
     " Insert the template into the new diary entry
-    call append(0, l:template)
+    call append(2, l:template)
     write
 endfunction
 
