@@ -7,7 +7,9 @@ shell_zsh_plugins:
     version: 0.8.0
 
 shell_aliases:
+  k: kubectl
+  rmt: "cd ~ && rm -rf ~/tmp 2>/dev/null"
   ssh-config: "cat ~/.ssh/config"
   t: "mkdir ~/tmp 2>/dev/null; cd ~/tmp"
-  rmt: "cd ~ && rm -rf ~/tmp 2>/dev/null"
+  ta: "tmux attach"
   userz: "cat /etc/passwd | awk -F ':' '$3>=1000 {print $1}'"
