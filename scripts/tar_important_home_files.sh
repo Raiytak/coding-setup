@@ -25,12 +25,13 @@ favorite_dotfile=(
     ".gitconfig"
     ".p10k.zsh"
     ".profile"
+    ".ssh"
     ".vimrc"
     ".zshrc"
 )
 mkdir dotfiles
 for file in "${favorite_dotfile[@]}"; do
-    cp "${HOME}/${file}" dotfiles/
+    cp -r "${HOME}/${file}" dotfiles/
 done
 
 popd > /dev/null
