@@ -7,6 +7,7 @@ shell_zsh_plugins:
     version: 0.8.0
 
 shell_aliases:
+  d: "mkdir ~/debugging 2>/dev/null; cd ~/debugging"
   k: kubectl
   rmt: "cd ~ && rm -rf ~/tmp 2>/dev/null"
   ssh-config: "cat ~/.ssh/config"
