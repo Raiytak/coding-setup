@@ -9,6 +9,7 @@ shell_zsh_plugins:
 shell_aliases:
   d: "mkdir ~/debugging 2>/dev/null; cd ~/debugging"
   k: kubectl
+  q: exit
   rmt: "cd ~ && rm -rf ~/tmp 2>/dev/null"
   ssh-config: "cat ~/.ssh/config"
   t: "mkdir ~/tmp 2>/dev/null; cd ~/tmp"
