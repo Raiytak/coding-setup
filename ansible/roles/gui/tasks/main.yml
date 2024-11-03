@@ -1,4 +1,7 @@
 ---
 - name: Install gpick
   ansible.builtin.apt:
-    name: "gpick=${gui_gpick_version}"
+    name: "${app.key}=${app.value}"
+  loop: gui_applications
+  loop_control:
+    loop_var: app
