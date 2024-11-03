@@ -3,6 +3,10 @@
   hosts: "{{ target_host | default([]) }}"
   roles:
     - role: git
+    - role: gui
+      tags:
+        - never
+        - gui
     - role: shell
     - role: vim
     - role: ssh

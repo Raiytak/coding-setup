@@ -8,11 +8,6 @@
   become: true
   become_user: "{{ target_user }}"
 
-- name: Prepare Powerlvl10k
-  ansible.builtin.import_tasks: prepare_powerlvl10k.yml
-  become: true
-  become_user: "{{ target_user }}"
-
 - name: Add zsh plugins
   ansible.builtin.import_tasks: add_zsh_plugins.yml
   become: true
