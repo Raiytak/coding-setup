@@ -3,7 +3,7 @@
   ansible.builtin.uri:
     url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
     dest: /tmp/oh-my-zsh-install.sh
-    mode: "0755"
+    mode: '0755'
     creates: /tmp/oh-my-zsh-install.sh
 
 - name: Install 'Oh My Zsh' # noqa: partial-become[task]
@@ -21,9 +21,7 @@
     mode: '0644'
 
 - name: Add block of configuration
-  ansible.builtin.blockinfile:
+  ansible.builtin.lineinfile:
     path: "/home/{{ target_user }}/.zshrc"
-    block: |
-      # Ansible managed
-      setopt ksharrays
+    line: setopt ksharrays
     mode: '0644'

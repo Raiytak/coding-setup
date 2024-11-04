@@ -1,6 +1,6 @@
 ---
-- name: Basic shell preparations
-  ansible.builtin.import_tasks: basic_installations.yml
+- name: Basic shell installation
+  ansible.builtin.import_tasks: basic_installation.yml
   become: true
 
 - name: Prepare Oh My zsh
@@ -13,7 +13,12 @@
   become: true
   become_user: "{{ target_user }}"
 
-- name: Set up personal configurations
-  ansible.builtin.import_tasks: personal_configurations.yml
+- name: Install Oh My Posh
+  ansible.builtin.import_tasks: install_ohmyposh.yml
+  become: true
+  become_user: "{{ target_user }}"
+
+- name: Add aliases
+  ansible.builtin.import_tasks: add_aliases.yml
   become: true
   become_user: "{{ target_user }}"

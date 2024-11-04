@@ -1,0 +1,10 @@
+---
+- name: Install mux
+  ansible.builtin.apt:
+    name: tmux
+
+- name: Add tmux configuration
+  ansible.builtin.copy:
+    source:
+    target:
+    mode: '0644'
