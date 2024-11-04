@@ -3,6 +3,8 @@ set foldcolumn=0
 
 set spell
 
+let g:AutoPairs = {}
+
 # shift + alt + L/H: Change window
 bind -n M-H previous-window
 bind -n M-L next-window
