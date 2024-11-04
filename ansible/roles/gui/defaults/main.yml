@@ -2,3 +2,4 @@
 gui_applications:
   gpick: 0.2.6-1
   copyq: 6.0.1-1
+  gnome-shell-pomodoro: 0.20.0-3
