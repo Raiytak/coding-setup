@@ -8,11 +8,6 @@
   become: true
   become_user: "{{ target_user }}"
 
-- name: Add zsh plugins
-  ansible.builtin.import_tasks: add_zsh_plugins.yml
-  become: true
-  become_user: "{{ target_user }}"
-
 - name: Install Oh My Posh
   ansible.builtin.import_tasks: install_ohmyposh.yml
   become: true

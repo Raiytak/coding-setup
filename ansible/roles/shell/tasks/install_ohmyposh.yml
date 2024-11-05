@@ -3,7 +3,6 @@
   ansible.builtin.shell:
     cmd: set -o pipefail && curl -s https://ohmyposh.dev/install.sh | bash -s
     executable: /bin/bash
-  args:
     creates: "/home/{{ target_user }}/bin/oh-my-posh"
   changed_when: true
 

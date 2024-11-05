@@ -1,11 +1,6 @@
 ---
 shell_kubectl_version: v1.29
 
-shell_zsh_plugins:
-  - name: zsh-syntax-highlighting
-    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
-    version: 0.8.0
-
 shell_aliases:
   d: "mkdir ~/debugging 2>/dev/null; cd ~/debugging"
   k: kubectl
