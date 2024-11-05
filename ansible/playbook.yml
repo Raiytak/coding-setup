@@ -6,7 +6,7 @@
     - role: gui
       tags:
         - never
-        - gui
+        - install_gui
     - role: shell
     - role: vim
     - role: ssh
