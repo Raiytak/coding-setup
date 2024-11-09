@@ -83,6 +83,15 @@ leading_diamond = ""
 trailing_diamond = ""
 template = " 󱃾 {{.Context}}"
 
+[[tooltips]]
+type = "go"
+tips = [ "go" ]
+style = "diamond"
+foreground = "p:white"
+background = "p:blue"
+leading_diamond = ""
+trailing_diamond = ""
+template = "  {{ .Full }} "
 
 # Colors
 [palette]
