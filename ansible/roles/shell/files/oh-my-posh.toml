@@ -43,7 +43,10 @@ console_title_template = '{{ .Folder }}'
     trailing_diamond = ""
     background = 'p:main_purple'
     foreground = 'p:white'
-    template = '{{ .UpstreamIcon }} {{ .Ref }}'
+    template = ' {{ .UpstreamIcon }} {{ .Ref }} '
+	[blocks.segments.properties]
+		fetch_status = true
+		fetch_upstream_icon = true
 
 [[blocks]]
   type = 'prompt'
