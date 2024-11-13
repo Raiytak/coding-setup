@@ -16,7 +16,7 @@ console_title_template = '{{ .Folder }}'
     style = 'diamond'
     leading_diamond = ''
     template = '  {{ .HostName }} '
-    background = 'p:blue'
+    background = 'p:main_blue'
     foreground = 'p:white'
 
   [[blocks.segments]]
@@ -24,11 +24,26 @@ console_title_template = '{{ .Folder }}'
     style = 'diamond'
     trailing_diamond = ""
     template = '<parentBackground></>  {{ .Path }} ' #         nf-ple https://www.nerdfonts.com/cheat-sheet
-    background = 'p:yellow'
+    background = 'p:main_yellow'
     foreground = 'p:black'
 
     [blocks.segments.properties]
       style = 'full'
+
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    type = 'git'
+    style = 'diamond'
+    leading_diamond = ""
+    trailing_diamond = ""
+    background = 'p:main_purple'
+    foreground = 'p:white'
+    template = '{{ .UpstreamIcon }} {{ .Ref }}'
 
 [[blocks]]
   type = 'prompt'
@@ -61,10 +76,10 @@ console_title_template = '{{ .Folder }}'
 # Tooltips
 [[tooltips]]
 type = "git"
-tips = [ "git", "g"  ]
+tips = ["git", "g"]
 style = "diamond"
 foreground = "p:white"
-background = "p:blue"
+background = "p:main_blue"
 leading_diamond = ""
 trailing_diamond = ""
 template = ' {{ .UpstreamIcon }} {{ .HEAD }} {{ if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} '
@@ -78,7 +93,7 @@ type = 'kubectl'
 tips = [ "kubectl", "k"  ]
 style = "diamond"
 foreground = "p:white"
-background = "p:blue"
+background = "p:main_blue"
 leading_diamond = ""
 trailing_diamond = ""
 template = " 󱃾 {{.Context}}"
@@ -88,7 +103,7 @@ type = "go"
 tips = [ "go" ]
 style = "diamond"
 foreground = "p:white"
-background = "p:blue"
+background = "p:main_blue"
 leading_diamond = ""
 trailing_diamond = ""
 template = "  {{ .Full }} "
@@ -97,6 +112,11 @@ template = "  {{ .Full }} "
 [palette]
 white = '#ffffff'
 black = '#193549'
+
+# Square of colors
+main_blue = '#0016FF'
+main_yellow = '#FFE900'
+main_green = '#00FF69'
+main_purple = '#FF0096'
+
 orange = '#FF6B00' # '#ff2a00'
-blue = '#0021FF' #'#6B00FF' '#2A00ff'
-yellow = '#FFDE00'
