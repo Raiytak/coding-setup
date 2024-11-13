@@ -42,7 +42,7 @@ console_title_template = '{{ .Folder }}'
     leading_diamond = ""
     trailing_diamond = ""
     background = 'p:main_purple'
-    foreground = 'p:white'
+    foreground = 'p:black'
     template = ' {{ .UpstreamIcon }} {{ .Ref }} '
 	[blocks.segments.properties]
 		fetch_status = true
@@ -114,12 +114,10 @@ template = "  {{ .Full }} "
 # Colors
 [palette]
 white = '#ffffff'
-black = '#193549'
+black = '#000000'
 
 # Square of colors
-main_blue = '#0016FF'
-main_yellow = '#FFE900'
-main_green = '#00FF69'
-main_purple = '#FF0096'
-
-orange = '#FF6B00' # '#ff2a00'
+main_blue = '#0000FF'
+main_yellow = '#FFFF00'
+main_green = '#00FF7F'
+main_purple = '#FF0080'
