@@ -5,6 +5,6 @@
 
 - name: Add tmux configuration
   ansible.builtin.copy:
-    source: files/tmux.conf
-    target: "/home/{{ target_user }}/.tmux.conf"
+    src: files/tmux.conf
+    dest: "/home/{{ target_user }}/.tmux.conf"
     mode: '0644'

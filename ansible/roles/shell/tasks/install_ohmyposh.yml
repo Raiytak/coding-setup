@@ -26,12 +26,10 @@
 
 - name: Ensure oh-my-posh init line is the last line in .zshrc
   ansible.builtin.lineinfile:
-    path: "{{ shell }}"
-    line: eval "$(oh-my-posh init bash --config /home/{{ target_user }}/.config/zsh/oh-my-posh.toml)"
+    path: "{{ item.value }}"
+    line: eval "$(oh-my-posh init {{ item.key }} --config /home/{{ target_user }}/.config/zsh/oh-my-posh.toml)"
     insertafter: EOF
     mode: '0644'
-  loop:
-    - "/home/{{ target_user }}/.bashrc"
-    - "/home/{{ target_user }}/.zshrc"
-  loop_control:
-    loop_var: shell
+  with_dict:
+    - {"bash": "/home/{{ target_user }}/.bashrc"}
+    - {"zsh": "/home/{{ target_user }}/.zshrc"}

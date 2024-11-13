@@ -2,10 +2,6 @@
 - name: Basic shell installation
   ansible.builtin.import_tasks: basic_installation.yml
   become: true
-
-- name: Prepare Oh My zsh
-  ansible.builtin.import_tasks: prepare_omzsh.yml
-  become: true
   become_user: "{{ target_user }}"
 
 - name: Install Oh My Posh

@@ -21,6 +21,9 @@ bindkey -e
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 
+bindkey '\e[1;5C' forward-word  # Ctrl + Right Arrow
+bindkey '\e[1;5D' backward-word # Ctrl + Left Arrow
+
 HISTSIZE=5000
 HISTFILE=~/.zsh_history
 SAVEHIST=${HISTSIZE}
@@ -59,6 +62,3 @@ alias ls='ls --color'
 
 # eval "$(fzf --zsh)" # Enables fuzzy finding
 eval "$(zoxide init --cmd cd zsh)" # Enables zoxide
-
-export ZSH="$HOME/.oh-my-zsh"
-source $ZSH/oh-my-zsh.sh
