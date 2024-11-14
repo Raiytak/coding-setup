@@ -4,6 +4,7 @@
     path: "/home/{{ target_user }}/.vimrc"
     line: "Plug {{ plugin }}"
     insertbefore: 'call plug#end()'
+    mode: '0644'
   loop: "{{ vim_plugins }}"
   loop_control:
     loop_var: plugin
