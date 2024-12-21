@@ -1,5 +1,4 @@
 ---
 vim_plugins:
-  - "'vimwiki/vimwiki'"
   - "'mattn/calendar-vim'"
   - "'preservim/nerdtree', { 'on': 'NERDTreeToggle' }"

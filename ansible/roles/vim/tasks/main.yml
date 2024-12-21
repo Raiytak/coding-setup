@@ -9,7 +9,7 @@
   become: true
   become_user: "{{ target_user }}"
 
-- name: Install vim wiki
+- name: Install vim plugins
   ansible.builtin.import_tasks: install_vim_plugins.yml
   become: true
   become_user: "{{ target_user }}"

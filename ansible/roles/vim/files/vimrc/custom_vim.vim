@@ -1,3 +1,7 @@
+set nocompatible
+filetype plugin on
+syntax on
+
 let g:mapleader = ","
 
 " No left column
