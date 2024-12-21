@@ -1,0 +1,18 @@
+---
+- name: Install Homebrew
+  ansible.builtin.block:
+    - name: Detect if Homebrew is installed
+      ansible.builtin.command:
+        cmd: which brew
+      register: which_brew
+
+    - name: Install Homebrew
+      ansible.builtin.shell:
+        cmd: set -o pipefail && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      when: which_brew.rc != 0
+
+- name: Install plugins
+  community.general.homebrew: # https://docs.ansible.com/ansible/latest/collections/community/general/homebrew_module.html#requirements
+    name: fzf # https://github.com/junegunn/fzf#installation
+
+# Missing the steps to add brew and fzf in .zshrc

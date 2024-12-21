@@ -60,5 +60,5 @@ alias ls='ls --color'
 # Other aliases
 
 
-# eval "$(fzf --zsh)" # Enables fuzzy finding
-eval "$(zoxide init --cmd cd zsh)" # Enables zoxide
+source <(fzf --zsh) # Enables fuzzy finding
+eval "$(zoxide init zsh)" # Enables zoxide

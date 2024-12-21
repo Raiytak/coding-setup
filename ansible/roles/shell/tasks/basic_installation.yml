@@ -3,8 +3,6 @@
   ansible.builtin.apt:
     name:
       - zsh
-      - fzf
-      - zoxide
 
 - name: Set zsh as default
   ansible.builtin.user:

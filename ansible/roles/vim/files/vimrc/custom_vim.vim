@@ -9,3 +9,5 @@ set spell
 
 " Prevent automatic closing of [, {, (
 let g:AutoPairs = {}
+
+colorscheme slate
