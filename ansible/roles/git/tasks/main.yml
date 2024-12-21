@@ -3,7 +3,12 @@
   ansible.builtin.apt:
     name: git
 
+- name: Configure git options
+  ansible.builtin.import_tasks: configure.yml
+  become: true
+  become_user: "{{ target_user }}"
+
 - name: Add git aliases
-  ansible.builtin.import_tasks: aliases.yml
+  ansible.builtin.import_tasks: add_aliases.yml
   become: true
   become_user: "{{ target_user }}"
