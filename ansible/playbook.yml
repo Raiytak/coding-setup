@@ -9,7 +9,6 @@
         - install_gui
     - role: shell
     - role: vim
-    - role: ssh
     - role: tmux
     - role: kubectl
     - role: kvm

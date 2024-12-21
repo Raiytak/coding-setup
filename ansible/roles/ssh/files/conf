@@ -1,6 +1,0 @@
-# IdentityFile ~/.ssh/companyX/id_ed25519
-# 
-# Host myhostname
-#   Hostname host_ip
-#   User username
-#   IdentityFile id_ed25519
