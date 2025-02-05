@@ -1,0 +1,14 @@
+---
+- name: Install CLI applications
+  ansible.builtin.apt:
+    name: "${app.key}=${app.value}"
+  loop: application_cli
+  loop_control:
+    loop_var: app
+
+- name: Install GUI applications
+  ansible.builtin.apt:
+    name: "${app.key}=${app.value}"
+  loop: application_gui
+  loop_control:
+    loop_var: app

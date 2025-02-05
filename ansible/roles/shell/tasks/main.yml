@@ -1,15 +1,33 @@
 ---
-- name: Basic shell installation
-  ansible.builtin.import_tasks: basic_installation.yml
-  become: true
-  become_user: "{{ target_user }}"
+- name: Install zsh
+  ansible.builtin.apt:
+    name:
+      - zsh
+
+- name: Set zsh as default
+  ansible.builtin.user:
+    user: "{{ target_user }}"
+    shell: /usr/bin/zsh
 
 - name: Install Oh My Posh
-  ansible.builtin.import_tasks: install_ohmyposh.yml
-  become: true
-  become_user: "{{ target_user }}"
+  ansible.builtin.shell:
+    cmd: set -o pipefail && curl -s https://ohmyposh.dev/install.sh | bash -s
+    executable: /bin/bash
+    creates: "/home/{{ target_user }}/bin/oh-my-posh"
+  changed_when: true
 
-- name: Add aliases
-  ansible.builtin.import_tasks: add_aliases.yml
-  become: true
-  become_user: "{{ target_user }}"
+- name: Detect if Homebrew is installed
+  ansible.builtin.command:
+    cmd: which brew
+  register: which_brew
+  changed_when: false
+
+- name: Install Homebrew
+  ansible.builtin.shell:
+    cmd: set -o pipefail && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  when: which_brew.rc != 0
+  changed_when: which_brew.rc != 0
+
+- name: Install plugins
+  community.general.homebrew: # https://docs.ansible.com/ansible/latest/collections/community/general/homebrew_module.html#requirements
+    name: fzf # https://github.com/junegunn/fzf#installation

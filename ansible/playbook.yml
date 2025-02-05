@@ -2,14 +2,9 @@
 - name: Prepare basic setup
   hosts: "{{ target_host | default([]) }}"
   roles:
-    - role: git
-    - role: gui
-      tags:
-        - never
-        - install_gui
+    - role: application
     - role: shell
     - role: vim
-    - role: tmux
     - role: kubectl
     - role: kvm
       tags:

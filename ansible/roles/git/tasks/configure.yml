@@ -1,6 +1,0 @@
----
-- name: Set push.autoSetupRemote to true globally
-  community.general.git_config:
-    name: push.autoSetupRemote
-    value: true
-    scope: global
