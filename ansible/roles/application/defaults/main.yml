@@ -1,9 +1,9 @@
 ---
 application_cli:
-  tmux: 3.2a
+  tmux: 3.4-1ubuntu0.1
 
 application_gui:
-  gpick: 0.2.6-1
-  copyq: 6.0.1-1
-  gnome-shell-pomodoro: 0.20.0-3
-  flameshot: 11.0.0-2
+  gpick: 0.2.6-1ubuntu2
+  copyq: 7.1.0-1build2
+  gnome-shell-pomodoro: 0.25.1-1
+  flameshot: 12.1.0-2build2

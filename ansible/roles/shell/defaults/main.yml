@@ -1,0 +1,3 @@
+---
+shell_plugins:
+  - fzf # https://github.com/junegunn/fzf#installation

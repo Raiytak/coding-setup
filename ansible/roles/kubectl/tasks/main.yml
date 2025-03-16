@@ -9,7 +9,8 @@
 - name: Install kubectl # noqa: command-instead-of-module
   ansible.builtin.shell:
     cmd: |
-      set -o pipefail && curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-      install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+      set -o pipefail && curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" --output /tmp/kubectl
+      install -o root -g root -m 0755 /tmp/kubectl /usr/local/bin/kubectl
+      rm /tmp/kubectl
     creates: /usr/local/bin/kubectl
     executable: /bin/bash

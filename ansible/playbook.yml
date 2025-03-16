@@ -4,7 +4,7 @@
   roles:
     - role: application
     - role: shell
-    - role: vim
+    # - role: vim
     - role: kubectl
     - role: kvm
       tags:

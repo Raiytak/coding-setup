@@ -1,0 +1,16 @@
+---
+- name: Install plugins
+  community.general.homebrew: # https://docs.ansible.com/ansible/latest/collections/community/general/homebrew_module.html#requirements
+    name: "{{ plugin }}"
+  become: false
+  loop: "{{ shell_plugins }}"
+  loop_control:
+    loop_var: plugin
+
+- name: Install Oh My Posh
+  ansible.builtin.shell:
+    cmd: set -o pipefail && curl -s https://ohmyposh.dev/install.sh | bash -s
+    executable: /bin/bash
+    creates: "/home/{{ target_user }}/bin/oh-my-posh"
+  changed_when: true
+  become: false

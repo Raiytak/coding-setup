@@ -1,0 +1,16 @@
+---
+- name: Install zsh
+  ansible.builtin.apt:
+    name: zsh
+
+- name: Set zsh as default
+  ansible.builtin.user:
+    user: "{{ target_user }}"
+    shell: /usr/bin/zsh
+
+- name: Install tools
+  ansible.builtin.apt:
+    name:
+      - curl
+      - zoxide
+      - bash-completion

@@ -21,3 +21,7 @@ apt install pre-commit
 pre-commit install
 pre-commit
 ```
+
+# Other
+## Font
+Install a Nerd Font from https://www.nerdfonts.com/

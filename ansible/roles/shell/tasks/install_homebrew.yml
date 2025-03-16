@@ -1,0 +1,15 @@
+---
+- name: Detect if Homebrew is installed
+  ansible.builtin.command:
+    cmd: which brew
+  register: which_brew
+  changed_when: false
+  failed_when: false
+
+- name: Install Homebrew
+  ansible.builtin.shell:
+    cmd: set -o pipefail && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    executable: /bin/bash
+  when: which_brew.rc != 0
+  changed_when: true
+  become: false

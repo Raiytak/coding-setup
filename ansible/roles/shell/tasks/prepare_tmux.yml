@@ -1,0 +1,16 @@
+---
+- name: Clone tpm (tmux plugin manager)
+  ansible.builtin.command:
+    cmd: git clone https://github.com/tmux-plugins/tpm /home/{{ target_user }}/.tmux/plugins/tpm
+    creates: "/home/{{ target_user }}/.tmux/plugins/tpm"
+  remote_user: "{{ target_user }}"
+  become: false
+
+- name: Install plugins using tpm (tmux plugin manager)
+  ansible.builtin.shell:
+    cmd: |
+      export TMUX_PLUGIN_MANAGER_PATH=/home/{{ target_user }}/.tmux
+      /home/{{ target_user }}/.tmux/plugins/tpm/bin/install_plugins
+  remote_user: "{{ target_user }}"
+  become: false
+  changed_when: true

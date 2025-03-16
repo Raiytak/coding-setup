@@ -1,5 +1,6 @@
 ---
 - name: Check available virtulization
   ansible.builtin.import_tasks: available_virtualization.yml
+
 - name: Prepare virtualization
   ansible.builtin.import_tasks: prepare_virtualization.yml
